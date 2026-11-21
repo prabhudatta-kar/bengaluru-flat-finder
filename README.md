@@ -1,23 +1,11 @@
-# Bengaluru Flat Finder, prototype
+# Bengaluru Flat Finder
 
-**PROTOTYPE, ESTIMATED DATA. This is not a faithful reproduction of the source video or its project.**
+Built from the original Flat Finder app by Divy Kairoth (https://github.com/kairothq/flat-finder), using the Bengaluru adaptation and pipeline output from https://github.com/aryabharat/flat-finder. Source code is preserved here. This replaces an earlier from-scratch prototype with guessed project attributes; do not rely on its old CSV downloads.
 
-This site contains 100 selected Bengaluru project names with OpenStreetMap geocoding. It is not a complete city directory. Locations have not been individually checked against primary sources.
+## Data caveats
 
-Buy and rent ranges are rough corridor-based calculations using assumed unit sizes, not live listings or verified project prices. They are not reliable evidence of current price or availability.
+This is a third-party snapshot, not a fresh crawl or live inventory. Dataset-reported totals: 14,200 projects listed, 13,566 societies on map, 46,443 sale listings and 12,425 rental listings. These counts are not independently audited. Bedroom plans: 0 hand-verified rows; unknown dimensions must remain unknown. Portal facts, listing-based medians and modeled prices have different confidence levels. Verify listings, prices, amenities and dimensions at their cited sources before deciding. The dataset covers part, not all, of the city-wide portal directory.
 
-## Correction after audit
+## Source and run
 
-The first version assigned BHK configurations, home sizes, smallest-bedroom sizes, amenities and ratings using project-class assumptions. These were not verified project facts. Those fields have now been removed from the shipped dataset, cards, shortlist and CSV. Their filters have been disabled. Do not rely on an earlier downloaded CSV.
-
-Search, map markers, indicative budget filtering and CSV export remain as prototype interactions. CSV price columns are explicitly labeled estimates. Portal buttons are generic search attempts, not verified listings.
-
-## Difference from the video
-
-The video points to https://github.com/kairothq/flat-finder and https://flat-finder.pages.dev/. Its city-adaptation route reuses that project and its data pipeline. This prototype was instead built from scratch using Leaflet and hand-selected projects. It has not run the original Magicbricks city-wide pipeline, sourced floor-plan verification, building-outline map, confidence states, CLI or Claude connector.
-
-A faithful version needs the original project and source-grounded Bengaluru data. No such rebuild has been completed here.
-
-## Run locally
-
-Open index.html, or run `python3 -m http.server 8000` in this folder. The app is a single static HTML file with Leaflet from a CDN and OpenStreetMap tiles. No paid services are used.
+The app is in web/, the data pipeline in pipeline/, and CLI in cli/. Run npm ci then npm run dev inside web/. This repository also contains the compiled site at its root for GitHub Pages. Read ATTRIBUTION.md for authorship and license notes. No paid services are used by this build. The Claude MCP function is preserved as source but is not served by GitHub Pages.

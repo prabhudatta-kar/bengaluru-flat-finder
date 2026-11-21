@@ -1,0 +1,15 @@
+pipeline/cache/
+pipeline/cache_*.log
+pipeline/out/*/osm_buildings.geojson
+node_modules/
+web/dist/
+.DS_Store
+__pycache__/
+.pytest_cache/
+.gstack/
+
+pipeline/cache_*.log
+data/verified/*-ai.json.bak
+
+# Bengaluru crawl intermediates (large, rebuildable)
+pipeline/out/bangalore/mb_*.json

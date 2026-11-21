@@ -1,0 +1,19 @@
+{
+  "name": "flat-finder-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:pages": "vite build --base=./",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "maplibre-gl": "5.6.0"
+  },
+  "devDependencies": {
+    "vite": "6.3.5",
+    "vitest": "3.1.4"
+  }
+}
