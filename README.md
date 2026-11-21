@@ -1,39 +1,23 @@
-# Bengaluru Flat Finder
+# Bengaluru Flat Finder, prototype
 
-An interactive map of 100 major apartment societies/projects across Bengaluru - search by area, filter by budget (buy or rent), BHK, home size, smallest-room size and amenities, and pull every match onto one map. Inspired by the Gurugram flat-finder from the video "Real estate is going to change forever (This time by Claude)".
+**PROTOTYPE, ESTIMATED DATA. This is not a faithful reproduction of the source video or its project.**
 
-## Run it
+This site contains 100 selected Bengaluru project names with OpenStreetMap geocoding. It is not a complete city directory. Locations have not been individually checked against primary sources.
 
-It is a fully static site - open `index.html` in a browser, or serve the folder:
+Buy and rent ranges are rough corridor-based calculations using assumed unit sizes, not live listings or verified project prices. They are not reliable evidence of current price or availability.
 
-```
-python3 -m http.server 8000
-# then http://localhost:8000
-```
+## Correction after audit
 
-Or use the hosted GitHub Pages link (see the repo's About section).
+The first version assigned BHK configurations, home sizes, smallest-bedroom sizes, amenities and ratings using project-class assumptions. These were not verified project facts. Those fields have now been removed from the shipped dataset, cards, shortlist and CSV. Their filters have been disabled. Do not rely on an earlier downloaded CSV.
 
-## Features
+Search, map markers, indicative budget filtering and CSV export remain as prototype interactions. CSV price columns are explicitly labeled estimates. Portal buttons are generic search attempts, not verified listings.
 
-- Full-city map (OpenStreetMap + CARTO dark tiles, Leaflet) with a marker per society
-- Search by area, locality, corridor, builder or society name; map zooms to matches
-- Buy / Rent toggle with a budget slider (buy: ₹40L-₹6Cr, rent: ₹15k-₹1.5L/mo)
-- BHK multi-select (1/2/3/4 BHK)
-- Minimum home size (sqft) and minimum smallest-room size (sqft) filters
-- Amenity filters: gym, pool, tennis, clubhouse, kids play area, badminton, squash, spa, golf, power backup
-- Live match count + scrollable shortlist; click to fly to the society
-- Detail card per society: configs, sizes, est. buy/rent ranges, indicative rating, amenities, and deep links to Google Maps, 99acres, MagicBricks and NoBroker
-- Download the current filtered list as CSV
+## Difference from the video
 
-## Data & method
+The video points to https://github.com/kairothq/flat-finder and https://flat-finder.pages.dev/. Its city-adaptation route reuses that project and its data pipeline. This prototype was instead built from scratch using Leaflet and hand-selected projects. It has not run the original Magicbricks city-wide pipeline, sourced floor-plan verification, building-outline map, confidence states, CLI or Claude connector.
 
-- **Society list & coordinates**: curated list of 100 well-known projects across 17 corridors (Whitefield, Sarjapur Road, Electronic City, HSR, Koramangala, Bellandur, Marathahalli, Hebbal, Thanisandra, Yelahanka, Devanahalli, Bannerghatta Road, Kanakapura Road, JP Nagar, Central-West, CBD, Indiranagar), geocoded against OpenStreetMap (Nominatim). Hits that did not validate against their corridor were dropped, so some good projects are missing from v1.
-- **Prices & rents**: corridor-level estimates built from Q3 2026 market data (e.g. corridor ₹/sqft and median 2BHK rents) multiplied by typical configuration sizes. They are shortlisting aids, **not** listings - always verify on the portals.
-- **Amenities / ratings**: indicative, from project class (standard / township / premium); verify per project.
+A faithful version needs the original project and source-grounded Bengaluru data. No such rebuild has been completed here.
 
-## Files
+## Run locally
 
-- `index.html`, `styles.css`, `app.js` - the app
-- `data.js` - the society dataset (`window.SOCIETIES`)
-
-No build step, no dependencies beyond Leaflet from CDN.
+Open index.html, or run `python3 -m http.server 8000` in this folder. The app is a single static HTML file with Leaflet from a CDN and OpenStreetMap tiles. No paid services are used.
