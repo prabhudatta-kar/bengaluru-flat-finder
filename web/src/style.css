@@ -303,3 +303,5 @@ body.has-card .maplibregl-ctrl-bottom-right { right: calc(var(--right-w) + var(-
 
 .prices .flagged { color: var(--muted); text-decoration: line-through dotted; }
 .flag-note { color: var(--likely); }
+
+#filters {padding-bottom:100px !important} @media(max-width:700px){#filters{padding-bottom:120px !important} body.m-collapsed .mtabs{bottom:88px !important}}
