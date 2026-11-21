@@ -1,0 +1,42 @@
+name: Verify original Bengaluru data pipeline
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/check-original.yml
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read original source
+        uses: actions/checkout@v4
+        with:
+          repository: kairothq/flat-finder
+          path: upstream
+          persist-credentials: false
+      - name: Check public source access and original parser
+        working-directory: upstream/pipeline
+        run: |
+          python3 - <<'PY'
+          import urllib.request, json
+          import mb_parse, mb_crawl
+          url = 'https://www.magicbricks.com/residential-projects-in-bangalore-nprid/page-1'
+          req = urllib.request.Request(url, headers={'User-Agent': mb_crawl.UA})
+          html = urllib.request.urlopen(req, timeout=40).read().decode('utf-8', 'ignore')
+          total = mb_parse.parse_total(html)
+          cards = mb_parse.parse_list_page(html)
+          print('City total:', total, 'First-page projects:', len(cards))
+          assert total and cards, 'Source returned no parseable projects'
+          project = mb_parse.card_to_project(cards[0])
+          import time
+          time.sleep(1.1)
+          req = urllib.request.Request(project['url'], headers={'User-Agent': mb_crawl.UA})
+          detail_html = urllib.request.urlopen(req, timeout=40).read().decode('utf-8', 'ignore')
+          detail = mb_parse.parse_project_page(detail_html)
+          print(json.dumps({'name': project['name'], 'url': project['url'], 'lat':detail.get('lat'), 'lng':detail.get('lng'), 'amenities':len(detail.get('amenities',[]))}))
+          assert detail.get('lat') and detail.get('lng'), 'No coordinates in source project'
+          print('PUBLIC_PIPELINE_ACCESS_OK')
+          PY
